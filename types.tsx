@@ -16,3 +16,11 @@ export type FolderWrapType = {
 export type FolderTitleType = {
   folder: ManagerEntryType
 }
+export type FileTitleType = {
+  file: ManagerEntryType
+}
+export type FileWrapType = {
+  file: ManagerEntryType
+  cursor: string
+  onOpen: (file: string) => void
+}

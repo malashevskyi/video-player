@@ -7,6 +7,7 @@ import { managerActions, RootState } from '../../store'
 import useFetch from '../../hooks/useFetch'
 import { Box, Flex } from '@chakra-ui/react'
 import Folders from './Folders'
+import Files from './Files'
 
 const Manager: NextPage<ManagerProps> = ({ separator, startDirectory }) => {
   const state = useSelector((state: RootState) => state.manager)
@@ -68,6 +69,7 @@ const Manager: NextPage<ManagerProps> = ({ separator, startDirectory }) => {
     <Box>
       <Flex wrap="wrap">
         <Folders />
+        <Files />
       </Flex>
     </Box>
   )
