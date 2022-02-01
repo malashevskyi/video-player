@@ -6,6 +6,7 @@ type InitialManagerType = {
   folders: ManagerEntryType[]
   newDirectory: string
   separator: null | string
+  startDirectory: string
   currentDirectory: null | string
 }
 
@@ -13,7 +14,8 @@ const initialMangerState: InitialManagerType = {
   files: [],
   folders: [],
   newDirectory: null,
-  currentDirectory: '/',
+  startDirectory: null,
+  currentDirectory: null,
   separator: null,
 }
 
@@ -32,6 +34,9 @@ const managerSlice = createSlice({
     },
     setCurrentDirectory(state, action) {
       state.currentDirectory = action.payload
+    },
+    setStartDirectory(state, action) {
+      state.startDirectory = action.payload
     },
     setSeparator(state, action) {
       state.separator = action.payload

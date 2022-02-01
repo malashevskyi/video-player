@@ -42,6 +42,7 @@ const Manager: NextPage<ManagerProps> = ({ separator, startDirectory }) => {
   const getVideoFilesOfCurrentDirectory = () => {}
 
   const onSetNewDirectoryHandler = () => {
+    console.log('state.newDirectory', state.newDirectory)
     doSetNewDirectory({
       method: 'POST',
       headers: new Headers({
@@ -58,7 +59,7 @@ const Manager: NextPage<ManagerProps> = ({ separator, startDirectory }) => {
   const onNewDirectoryResponseHandler = () => {
     if (!newDirectoryResponse) return
 
-    // console.log('response', newDirectoryResponse)
+    console.log('response', newDirectoryResponse)
     const { folders, files } = newDirectoryResponse
 
     dispatch(managerActions.setFolders(folders))

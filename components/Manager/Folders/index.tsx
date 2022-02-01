@@ -4,14 +4,20 @@ import { FolderIcon } from '../Icons'
 import FolderTitle from './FolderTitle'
 import FolderWrap from './FolderWrap'
 
+import path from 'path'
+
 const Folders = () => {
-  const { separator, currentDirectory, folders } = useSelector(
+  const { separator, folders, startDirectory, currentDirectory } = useSelector(
     (state: RootState) => state.manager
   )
   const dispatch = useDispatch()
 
   const onOpenFolderHandler = (folder: string) => {
-    const newDirectory = currentDirectory + folder + separator
+    const newDirectory = path.join(
+      currentDirectory ? currentDirectory : startDirectory,
+      folder,
+      separator
+    )
 
     dispatch(managerActions.setNewDirectory(newDirectory))
     dispatch(managerActions.setCurrentDirectory(newDirectory))

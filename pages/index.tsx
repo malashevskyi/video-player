@@ -5,8 +5,17 @@ import * as os from 'os'
 import { IndexProps } from '../types'
 
 import path from 'path'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { managerActions } from '../store'
 
 const Index: NextPage<IndexProps> = ({ separator, startDirectory }) => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(managerActions.setStartDirectory(startDirectory))
+  }, [startDirectory])
+
   return (
     <div>
       <Head>
@@ -23,7 +32,6 @@ const Index: NextPage<IndexProps> = ({ separator, startDirectory }) => {
 export default Index
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  // console.log('proccess', process.cwd())
   return {
     props: {
       separator: os.type() === ('Darwin' || 'Linux') ? '/' : '\\',

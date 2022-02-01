@@ -11,6 +11,7 @@ const FolderWrap = ({
       key={folder.name}
       w="200px"
       minH="100px"
+      cursor="pointer"
       p={3}
       _hover={{ bg: 'blue.100' }}
       onClick={(event) => {
