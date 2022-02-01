@@ -8,6 +8,7 @@ import useFetch from '../../hooks/useFetch'
 import { Box, Flex } from '@chakra-ui/react'
 import Folders from './Folders'
 import Files from './Files'
+import GoBack from './GoBack'
 
 const Manager: NextPage<ManagerProps> = ({ separator, startDirectory }) => {
   const state = useSelector((state: RootState) => state.manager)
@@ -42,7 +43,7 @@ const Manager: NextPage<ManagerProps> = ({ separator, startDirectory }) => {
   const getVideoFilesOfCurrentDirectory = () => {}
 
   const onSetNewDirectoryHandler = () => {
-    console.log('state.newDirectory', state.newDirectory)
+    // console.log('state.newDirectory', state.newDirectory)
     doSetNewDirectory({
       method: 'POST',
       headers: new Headers({
@@ -59,7 +60,7 @@ const Manager: NextPage<ManagerProps> = ({ separator, startDirectory }) => {
   const onNewDirectoryResponseHandler = () => {
     if (!newDirectoryResponse) return
 
-    console.log('response', newDirectoryResponse)
+    // console.log('response', newDirectoryResponse)
     const { folders, files } = newDirectoryResponse
 
     dispatch(managerActions.setFolders(folders))
@@ -68,6 +69,7 @@ const Manager: NextPage<ManagerProps> = ({ separator, startDirectory }) => {
 
   return (
     <Box>
+      <GoBack />
       <Flex wrap="wrap">
         <Folders />
         <Files />

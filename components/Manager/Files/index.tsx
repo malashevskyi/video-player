@@ -24,7 +24,7 @@ const Files = () => {
   return (
     <>
       {state.files.map((file) => {
-        console.log(file)
+        // console.log(file)
 
         return (
           <FileWrap

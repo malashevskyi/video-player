@@ -8,6 +8,7 @@ type InitialManagerType = {
   separator: null | string
   startDirectory: string
   currentDirectory: null | string
+  isRoot: boolean
 }
 
 const initialMangerState: InitialManagerType = {
@@ -17,6 +18,7 @@ const initialMangerState: InitialManagerType = {
   startDirectory: null,
   currentDirectory: null,
   separator: null,
+  isRoot: true,
 }
 
 const managerSlice = createSlice({
@@ -34,6 +36,7 @@ const managerSlice = createSlice({
     },
     setCurrentDirectory(state, action) {
       state.currentDirectory = action.payload
+      state.isRoot = !!action.payload.match(/file-manager\/$/)
     },
     setStartDirectory(state, action) {
       state.startDirectory = action.payload
