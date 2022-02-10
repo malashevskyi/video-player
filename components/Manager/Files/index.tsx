@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../../store'
+import { RootState, videoModalActions } from '../../../store'
 import GetIcon from '../Icons/GetIcon'
 import FileTitle from './FileTitle'
 import FileWrap from './FileWrap'
 
-const isVideoFile = (file: string) => {
-  const ext = file.slice(file.lastIndexOf('.'))
+const isVideoFile = (fileName: string) => {
+  const ext = fileName.slice(fileName.lastIndexOf('.'))
 
   if (ext == '.mp4' || ext == '.webm') return true
 
@@ -14,18 +14,20 @@ const isVideoFile = (file: string) => {
 
 const Files = () => {
   const state = useSelector((state: RootState) => state.manager)
+  const dispatch = useDispatch()
 
-  const onOpenFileHandler = (file: string) => {
-    if (isVideoFile(file)) {
-      // playVideo
+  const onOpenFileHandler = (fileName: string) => {
+    if (isVideoFile(fileName)) {
+      const path = state.currentDirectory + fileName
+
+      // open modal and start video
+      dispatch(videoModalActions.startWatchingVideo({ path, fileName }))
     }
   }
 
   return (
     <>
       {state.files.map((file) => {
-        // console.log(file)
-
         return (
           <FileWrap
             key={file.name}

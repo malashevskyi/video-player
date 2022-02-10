@@ -47,11 +47,36 @@ const managerSlice = createSlice({
   },
 })
 
+type InitialVideoModalType = {
+  videoPopupIsOpen: boolean
+}
+
+const initialVideoModalState: InitialVideoModalType = {
+  videoPopupIsOpen: false,
+}
+
+const videoModalSlice = createSlice({
+  name: 'Video Modal',
+  initialState: initialVideoModalState,
+  reducers: {
+    startWatchingVideo(state, action) {
+      state.videoPopupIsOpen = true
+    },
+    closeVideoPopup(state) {
+      state.videoPopupIsOpen = false
+    },
+  },
+})
+
 const store = configureStore({
-  reducer: { manager: managerSlice.reducer },
+  reducer: {
+    manager: managerSlice.reducer,
+    videoModal: videoModalSlice.reducer,
+  },
 })
 
 export const managerActions = managerSlice.actions
+export const videoModalActions = videoModalSlice.actions
 
 export default store
 export type RootState = ReturnType<typeof store.getState>
