@@ -1,7 +1,6 @@
 import { NextPage } from 'next'
 import { useEffect } from 'react'
 import { ManagerProps } from '../../types'
-import useSWR from 'swr'
 import { useDispatch, useSelector } from 'react-redux'
 import { managerActions, RootState } from '../../store'
 import useFetch from '../../hooks/useFetch'
@@ -13,37 +12,28 @@ import GoBack from './GoBack'
 const Manager: NextPage<ManagerProps> = ({ separator, startDirectory }) => {
   const state = useSelector((state: RootState) => state.manager)
   const dispatch = useDispatch()
-  // const { data, error } = useSWR('/api/set-directory')
   const [{ response: newDirectoryResponse }, doSetNewDirectory] =
     useFetch('api/set-directory')
 
   useEffect(() => {
-    getVideoFilesOfCurrentDirectory()
-  }, [state.files])
-
-  useEffect(() => {
-    setStartDirectoryAndSeparator()
+    // set startDirectory, separator, currentDirectory
+    dispatch(managerActions.setNewDirectory(startDirectory))
+    dispatch(managerActions.setCurrentDirectory(startDirectory))
+    dispatch(managerActions.setSeparator(separator))
   }, [])
 
   useEffect(() => {
-    onNewDirectoryResponseHandler()
+    if (!newDirectoryResponse) return
+
+    const { folders, files } = newDirectoryResponse
+    // update folders and files in state after directory has been changed
+    dispatch(managerActions.setFolders(folders))
+    dispatch(managerActions.setFiles(files))
   }, [newDirectoryResponse])
 
   useEffect(() => {
     if (!state.newDirectory) return
-
-    onSetNewDirectoryHandler()
-  }, [state.newDirectory])
-
-  const setStartDirectoryAndSeparator = () => {
-    dispatch(managerActions.setNewDirectory(startDirectory))
-    dispatch(managerActions.setSeparator(separator))
-  }
-
-  const getVideoFilesOfCurrentDirectory = () => {}
-
-  const onSetNewDirectoryHandler = () => {
-    // console.log('state.newDirectory', state.newDirectory)
+    // read files and folders form new directory
     doSetNewDirectory({
       method: 'POST',
       headers: new Headers({
@@ -55,17 +45,7 @@ const Manager: NextPage<ManagerProps> = ({ separator, startDirectory }) => {
         },
       }),
     })
-  }
-
-  const onNewDirectoryResponseHandler = () => {
-    if (!newDirectoryResponse) return
-
-    // console.log('response', newDirectoryResponse)
-    const { folders, files } = newDirectoryResponse
-
-    dispatch(managerActions.setFolders(folders))
-    dispatch(managerActions.setFiles(files))
-  }
+  }, [state.newDirectory])
 
   return (
     <Box>
