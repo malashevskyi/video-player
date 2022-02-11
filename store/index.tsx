@@ -87,19 +87,21 @@ const videoModalSlice = createSlice({
   initialState: initialVideoModalState,
   reducers: {
     startWatchingVideo(state, action) {
-      const { videoUrl, title, startTime } = action.payload
+      const { videoUrl, fileName } = action.payload
       state.videoPopupIsOpen = true
       state.videoId = state.videoId + 1
+      console.log('videoUrl', videoUrl)
       state.videoUrl = videoUrl
       state.videoDisplay = true
       state.videoLoading = true
       state.videoEnded = false
-      state.videoTitle = title
-      if (startTime) {
-        state.startTime = startTime
-      } else {
-        state.startTime = 0
-      }
+      console.log('fileName', fileName)
+      state.videoTitle = fileName
+      // if (startTime) {
+      //   state.startTime = startTime
+      // } else {
+      //   state.startTime = 0
+      // }
     },
     closeVideoPopup(state) {
       state.videoPopupIsOpen = false

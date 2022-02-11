@@ -13,13 +13,15 @@ const VideoPlayer = forwardRef<HTMLVideoElement>((_, ref: any) => {
     if (!state.videoEnded) return
 
     loadNewVideo()
-  }, [])
+  }, [state.videoEnded])
 
   const loadNewVideo = () => {
     const files = managerState.videoFilesOfCurrentDir
     const currentFileName = state.videoTitle
+    console.log('loadNewVideo', currentFileName)
 
     let index = files.findIndex((el) => el === currentFileName)
+    console.log('index', index)
     if (typeof index !== 'number') return
 
     if (index === files.length - 1) {
@@ -29,7 +31,9 @@ const VideoPlayer = forwardRef<HTMLVideoElement>((_, ref: any) => {
     }
 
     const fileName = files[index]
+    console.log('fileName', fileName)
     const videoUrl = managerState.currentDirectory + fileName
+    console.log('videoUrl', videoUrl)
     dispatch(videoModalActions.startWatchingVideo({ videoUrl, fileName }))
   }
 
@@ -48,7 +52,8 @@ const VideoPlayer = forwardRef<HTMLVideoElement>((_, ref: any) => {
       //   dispatch(videoModalActions.setTime(video.currentTime))
       // })
       video.addEventListener('ended', () => {
-        dispatch(videoModalActions.setVideoIsLoaded())
+        console.log('ended')
+        dispatch(videoModalActions.setVideoIsEnded())
       })
     }, 200)
 

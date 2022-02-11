@@ -31,6 +31,21 @@ const Manager: NextPage<ManagerProps> = ({ separator, startDirectory }) => {
     dispatch(managerActions.setFiles(files))
   }, [newDirectoryResponse])
 
+  // get video files of current directory
+  useEffect(() => {
+    const videoFiles: string[] = []
+
+    state.files.forEach((file) => {
+      const videoExt = file.name.match('.mp4')
+
+      if (videoExt) {
+        videoFiles.push(file.name)
+      }
+    })
+
+    dispatch(managerActions.setVideoFilesOfCurrentDirectory(videoFiles))
+  }, [state.currentDirectory, state.files])
+
   useEffect(() => {
     if (!state.newDirectory) return
     // read files and folders form new directory
