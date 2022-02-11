@@ -18,10 +18,11 @@ const Files = () => {
 
   const onOpenFileHandler = (fileName: string) => {
     if (isVideoFile(fileName)) {
-      const path = state.currentDirectory + fileName
+      const videoUrl = state.currentDirectory + fileName
+      console.log('video: ' + videoUrl)
 
       // open modal and start video
-      dispatch(videoModalActions.startWatchingVideo({ path, fileName }))
+      dispatch(videoModalActions.startWatchingVideo({ videoUrl, fileName }))
     }
   }
 

@@ -9,6 +9,7 @@ type InitialManagerType = {
   startDirectory: string
   currentDirectory: null | string
   isRoot: boolean
+  videoFilesOfCurrentDir: string[]
 }
 
 const initialMangerState: InitialManagerType = {
@@ -19,6 +20,7 @@ const initialMangerState: InitialManagerType = {
   currentDirectory: null,
   separator: null,
   isRoot: true,
+  videoFilesOfCurrentDir: [],
 }
 
 const managerSlice = createSlice({
@@ -27,6 +29,9 @@ const managerSlice = createSlice({
   reducers: {
     setFolders(state, action) {
       state.folders = action.payload
+    },
+    setVideoFilesOfCurrentDirectory(state, action) {
+      state.videoFilesOfCurrentDir = action.payload
     },
     setFiles(state, action) {
       state.files = action.payload
@@ -49,10 +54,32 @@ const managerSlice = createSlice({
 
 type InitialVideoModalType = {
   videoPopupIsOpen: boolean
+  isPlaying: boolean
+  videoId: number
+  videoUrl: string
+  videoDisplay: boolean
+  videoLoading: boolean
+  videoEnded: boolean | null
+  videoTitle: string | null
+  startTime: number
+  videoSpeed: number
+  videoHeight: number
+  videoWidth: number
 }
 
 const initialVideoModalState: InitialVideoModalType = {
   videoPopupIsOpen: false,
+  isPlaying: false,
+  videoId: 0,
+  videoUrl: null,
+  videoDisplay: false,
+  videoLoading: true,
+  videoEnded: null,
+  videoTitle: null,
+  startTime: 0,
+  videoSpeed: 1,
+  videoWidth: 1280,
+  videoHeight: 720,
 }
 
 const videoModalSlice = createSlice({
@@ -60,10 +87,41 @@ const videoModalSlice = createSlice({
   initialState: initialVideoModalState,
   reducers: {
     startWatchingVideo(state, action) {
+      const { videoUrl, title, startTime } = action.payload
       state.videoPopupIsOpen = true
+      state.videoId = state.videoId + 1
+      state.videoUrl = videoUrl
+      state.videoDisplay = true
+      state.videoLoading = true
+      state.videoEnded = false
+      state.videoTitle = title
+      if (startTime) {
+        state.startTime = startTime
+      } else {
+        state.startTime = 0
+      }
     },
     closeVideoPopup(state) {
       state.videoPopupIsOpen = false
+      state.isPlaying = false
+    },
+    setVideoIsLoaded(state) {
+      state.videoLoading = false
+      state.isPlaying = true
+    },
+    displayVideo(state) {
+      state.videoDisplay = false
+    },
+    setVideoIsEnded(state) {
+      state.videoEnded = true
+      state.isPlaying = false
+    },
+    changeVideoSpeed(state, action) {
+      state.videoSpeed = action.payload
+    },
+    setVideoSize(state, action) {
+      state.videoHeight = action.payload.h
+      state.videoWidth = action.payload.w
     },
   },
 })

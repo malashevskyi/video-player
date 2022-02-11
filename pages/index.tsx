@@ -10,7 +10,7 @@ import { useEffect } from 'react'
 import { managerActions } from '../store'
 import dynamic from 'next/dynamic'
 
-const VideoPopupWithNoSSR = dynamic(() => import('../components/Video'), {
+const VideoPopupWithNoSSR = dynamic(() => import('../components/Modal'), {
   ssr: false,
 })
 

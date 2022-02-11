@@ -18,6 +18,7 @@ const Folders = () => {
       folder,
       separator
     )
+    console.log(newDirectory)
 
     dispatch(managerActions.setNewDirectory(newDirectory))
     dispatch(managerActions.setCurrentDirectory(newDirectory))

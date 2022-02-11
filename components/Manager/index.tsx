@@ -17,8 +17,8 @@ const Manager: NextPage<ManagerProps> = ({ separator, startDirectory }) => {
 
   useEffect(() => {
     // set startDirectory, separator, currentDirectory
-    dispatch(managerActions.setNewDirectory(startDirectory))
-    dispatch(managerActions.setCurrentDirectory(startDirectory))
+    dispatch(managerActions.setNewDirectory(startDirectory + separator))
+    dispatch(managerActions.setCurrentDirectory(startDirectory + separator))
     dispatch(managerActions.setSeparator(separator))
   }, [])
 
