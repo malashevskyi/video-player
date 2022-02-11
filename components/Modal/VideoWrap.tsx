@@ -3,6 +3,7 @@ import { useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store'
 import VideoPlayer from './VideoPlayer'
+import VideoTitle from './VideoTitle'
 
 const VideoWrap = () => {
   const state = useSelector((state: RootState) => state.videoModal)
@@ -22,6 +23,7 @@ const VideoWrap = () => {
       <Box pos="relative" pt="40px">
         {/* switch button */}
         {/* video progress bar */}
+        <VideoTitle />
         <VideoPlayer ref={ref} />
       </Box>
       {/* <VideoControls>
