@@ -1,5 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
 import { ManagerEntryType } from '../types'
+import { format } from '../utiles'
 
 type InitialManagerType = {
   files: ManagerEntryType[]
@@ -65,6 +66,10 @@ type InitialVideoModalType = {
   videoSpeed: number
   videoHeight: number
   videoWidth: number
+  displayTime: string
+  displayDuration: string
+  currentTime: number
+  currentVideoDuration: number
 }
 
 const initialVideoModalState: InitialVideoModalType = {
@@ -80,6 +85,10 @@ const initialVideoModalState: InitialVideoModalType = {
   videoSpeed: 1,
   videoWidth: 1280,
   videoHeight: 720,
+  displayTime: '0:0',
+  displayDuration: '0:0',
+  currentTime: 0,
+  currentVideoDuration: 0,
 }
 
 const videoModalSlice = createSlice({
@@ -124,6 +133,17 @@ const videoModalSlice = createSlice({
     setVideoSize(state, action) {
       state.videoHeight = action.payload.h
       state.videoWidth = action.payload.w
+    },
+    setIsPlaying(state, action) {
+      state.isPlaying = action.payload
+    },
+    setTime(state, action) {
+      state.displayTime = format(action.payload)
+      state.currentTime = action.payload
+    },
+    setVideoDuration(state, action) {
+      state.currentVideoDuration = action.payload
+      state.displayDuration = format(action.payload)
     },
   },
 })

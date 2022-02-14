@@ -47,10 +47,10 @@ const VideoPlayer = forwardRef<HTMLVideoElement>((_, ref: any) => {
         video.playbackRate = state.videoSpeed
       }
 
-      // dispatch(videoModalActions.setVideoDuration(video.duration))
-      // video.addEventListener('timeupdate', () => {
-      //   dispatch(videoModalActions.setTime(video.currentTime))
-      // })
+      dispatch(videoModalActions.setVideoDuration(video.duration))
+      video.addEventListener('timeupdate', () => {
+        dispatch(videoModalActions.setTime(video.currentTime))
+      })
       video.addEventListener('ended', () => {
         console.log('ended')
         dispatch(videoModalActions.setVideoIsEnded())
