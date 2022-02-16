@@ -135,7 +135,7 @@ const VideoWrap = () => {
       justify="center"
       pos="relative"
       spacing={0}
-      // pr={state.sidebarIsOpen ? '450px' : '0'}
+      pr={state.sidebarIsOpen ? '450px' : '0'}
       transition="padding 0.3s ease"
       ref={popupWrapRef}
     >

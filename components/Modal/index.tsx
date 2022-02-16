@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useFetch from '../../hooks/useFetch'
 import { RootState, videoModalActions } from '../../store'
+import Sidebar from './Sidebar'
 import VideoWrap from './VideoWrap'
 
 const VideoPopup = () => {
@@ -74,7 +75,7 @@ const VideoPopup = () => {
             <Box overflow="hidden" position="relative">
               <VideoWrap />
             </Box>
-            Sidebar
+            <Sidebar />
           </ModalBody>
         </ModalContent>
       </Modal>
