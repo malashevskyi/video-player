@@ -70,6 +70,7 @@ type InitialVideoModalType = {
   displayDuration: string
   currentTime: number
   currentVideoDuration: number
+  sidebarIsOpen: boolean
 }
 
 const initialVideoModalState: InitialVideoModalType = {
@@ -89,6 +90,7 @@ const initialVideoModalState: InitialVideoModalType = {
   displayDuration: '0:0',
   currentTime: 0,
   currentVideoDuration: 0,
+  sidebarIsOpen: false,
 }
 
 const videoModalSlice = createSlice({
@@ -111,6 +113,9 @@ const videoModalSlice = createSlice({
       // } else {
       //   state.startTime = 0
       // }
+    },
+    toggleSidebar(state) {
+      state.sidebarIsOpen = !state.sidebarIsOpen
     },
     closeVideoPopup(state) {
       state.videoPopupIsOpen = false
