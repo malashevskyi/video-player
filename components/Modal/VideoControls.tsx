@@ -95,6 +95,7 @@ const VideoControls = memo(
               {managerState.videoFilesOfCurrentDir.map((file) => {
                 return (
                   <Button
+                    key={file}
                     w="100%"
                     whiteSpace="normal"
                     px={4}
