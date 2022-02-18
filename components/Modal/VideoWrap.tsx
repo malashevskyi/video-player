@@ -7,6 +7,7 @@ import VideoTitle from './VideoTitle'
 import screenfull from 'screenfull'
 import VideoControls from './VideoControls'
 import SwitchButton from './Sidebar/SwitchButton'
+import VideoProgressBar from './VideoProgressBar'
 
 const VideoWrap = () => {
   const state = useSelector((state: RootState) => state.videoModal)
@@ -141,7 +142,7 @@ const VideoWrap = () => {
     >
       <Box pos="relative" pt="40px">
         <SwitchButton />
-        {/* video progress bar */}
+        <VideoProgressBar />
         <VideoTitle />
         <VideoPlayer ref={ref} />
       </Box>

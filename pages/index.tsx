@@ -42,7 +42,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
   return {
     props: {
       separator: os.type() === ('Darwin' || 'Linux') ? '/' : '\\',
-      startDirectory: path.join(process.cwd(), 'file-manager'),
+      startDirectory: path.join(process.cwd(), 'public', 'file-manager'),
     },
   }
 }

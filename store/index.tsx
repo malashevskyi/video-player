@@ -69,8 +69,10 @@ type InitialVideoModalType = {
   displayTime: string
   displayDuration: string
   currentTime: number
-  currentVideoDuration: number
+  currentVideoDuration: number | null
   sidebarIsOpen: boolean
+  totalDurationOfFolderVideosInFolder: number | null
+  totalDurationOfPrevVideosInFolder: number
 }
 
 const initialVideoModalState: InitialVideoModalType = {
@@ -89,14 +91,22 @@ const initialVideoModalState: InitialVideoModalType = {
   displayTime: '0:0',
   displayDuration: '0:0',
   currentTime: 0,
-  currentVideoDuration: 0,
+  currentVideoDuration: null,
   sidebarIsOpen: false,
+  totalDurationOfFolderVideosInFolder: null,
+  totalDurationOfPrevVideosInFolder: 0,
 }
 
 const videoModalSlice = createSlice({
   name: 'Video Modal',
   initialState: initialVideoModalState,
   reducers: {
+    setTotalDurationOfFolderVideosInFolder(state, action) {
+      state.totalDurationOfFolderVideosInFolder = action.payload
+    },
+    setTotalDurationOfPrevVideosInFolder(state, action) {
+      state.totalDurationOfPrevVideosInFolder = action.payload
+    },
     startWatchingVideo(state, action) {
       const { videoUrl, fileName } = action.payload
       state.videoPopupIsOpen = true
