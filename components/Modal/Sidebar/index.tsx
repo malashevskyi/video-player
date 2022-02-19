@@ -1,6 +1,7 @@
 import { Box, List } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../store'
+import CreateTimestamp from './CreateTimestamp'
 
 const Sidebar = () => {
   const state = useSelector((state: RootState) => state.videoModal)
@@ -31,7 +32,7 @@ const Sidebar = () => {
       >
         <List spacing={3} p={5} overflow="hidden" h="100vh">
           {/* Search timestamp */}
-          {/* Create timestamp */}
+          <CreateTimestamp />
         </List>
       </Box>
     </Box>

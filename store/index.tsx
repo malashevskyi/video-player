@@ -1,5 +1,5 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
-import { ManagerEntryType } from '../types'
+import { ManagerEntryType, TimestampType } from '../types'
 import { format } from '../utiles'
 
 type InitialManagerType = {
@@ -73,6 +73,7 @@ type InitialVideoModalType = {
   sidebarIsOpen: boolean
   totalDurationOfFolderVideosInFolder: number | null
   totalDurationOfPrevVideosInFolder: number
+  timestamps: TimestampType[]
 }
 
 const initialVideoModalState: InitialVideoModalType = {
@@ -95,12 +96,16 @@ const initialVideoModalState: InitialVideoModalType = {
   sidebarIsOpen: false,
   totalDurationOfFolderVideosInFolder: null,
   totalDurationOfPrevVideosInFolder: 0,
+  timestamps: [],
 }
 
 const videoModalSlice = createSlice({
   name: 'Video Modal',
   initialState: initialVideoModalState,
   reducers: {
+    setTimestamps(state, action) {
+      state.timestamps = action.payload
+    },
     setTotalDurationOfFolderVideosInFolder(state, action) {
       state.totalDurationOfFolderVideosInFolder = action.payload
     },

@@ -24,3 +24,14 @@ export type FileWrapType = {
   cursor: string
   onOpen: (file: string) => void
 }
+export type TimestampType = {
+  description: string
+  title: string
+  fileName: string
+  id: string
+  time: number
+}
+export type FetchTimestampsType = {
+  onEditTimestampOpen: (timestamp: TimestampType) => void
+  scrollEndTrigger: boolean
+}
