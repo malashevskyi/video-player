@@ -1,6 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 public/file-manager/**/*.mp4
+public/file-manager/**/*.json
 
 # dependencies
 /node_modules
