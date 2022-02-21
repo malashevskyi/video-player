@@ -35,7 +35,9 @@ const managerSlice = createSlice({
       state.videoFilesOfCurrentDir = action.payload
     },
     setFiles(state, action) {
-      state.files = action.payload
+      state.files = action.payload.sort((a, b) =>
+        a.name.localeCompare(b.name, 'en', { numeric: true })
+      )
     },
     setNewDirectory(state, action) {
       state.newDirectory = action.payload
