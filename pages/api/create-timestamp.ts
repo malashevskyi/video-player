@@ -36,7 +36,7 @@ export default function handler(req, res) {
 
       fs.appendFileSync(path, JSON.stringify(newTimestamp))
 
-      res.status(201).json([newTimestamp])
+      res.status(201).json(newTimestamp)
     }
   } catch (error) {
     console.log('error', error)
