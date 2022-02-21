@@ -74,6 +74,7 @@ type InitialVideoModalType = {
   totalDurationOfFolderVideosInFolder: number | null
   totalDurationOfPrevVideosInFolder: number
   timestamps: TimestampType[]
+  filteredTimestamps: TimestampType[]
 }
 
 const initialVideoModalState: InitialVideoModalType = {
@@ -97,6 +98,7 @@ const initialVideoModalState: InitialVideoModalType = {
   totalDurationOfFolderVideosInFolder: null,
   totalDurationOfPrevVideosInFolder: 0,
   timestamps: [],
+  filteredTimestamps: [],
 }
 
 const videoModalSlice = createSlice({
@@ -105,6 +107,9 @@ const videoModalSlice = createSlice({
   reducers: {
     setTimestamps(state, action) {
       state.timestamps = action.payload
+    },
+    setFilteredTimestamps(state, action) {
+      state.filteredTimestamps = action.payload
     },
     setTotalDurationOfFolderVideosInFolder(state, action) {
       state.totalDurationOfFolderVideosInFolder = action.payload

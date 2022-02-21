@@ -95,7 +95,11 @@ const FetchedTimestamps = ({
 
   return (
     <Box h="calc(100vh - 150px" ref={timestampsContainer} overflow="auto">
-      {state.timestamps.map((timestamp) => {
+      {/* iterate filtered timestamps if exist, otherwise show all timestamps */}
+      {(state.filteredTimestamps.length > 0
+        ? state.filteredTimestamps
+        : state.timestamps
+      ).map((timestamp) => {
         return (
           <Box key={timestamp.id} pos="relative" w="100%" mb={4}>
             <HStack alignItems="stretch">
@@ -118,7 +122,6 @@ const FetchedTimestamps = ({
               <Flex flexDirection="column" flex="1">
                 <Button
                   variant="ghost"
-                  key={timestamp.id}
                   fontSize="14px"
                   whiteSpace="normal"
                   justifyContent="flex-start"
