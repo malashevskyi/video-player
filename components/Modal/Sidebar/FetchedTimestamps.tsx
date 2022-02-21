@@ -60,7 +60,7 @@ const FetchedTimestamps = ({
     if (state.videoTitle !== fileName) {
       dispatch(
         videoModalActions.startWatchingVideo({
-          path: managerState.currentDirectory + fileName,
+          videoUrl: managerState.currentDirectory + fileName,
           fileName,
           startTime: time,
         })
