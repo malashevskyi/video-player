@@ -10,10 +10,14 @@ const VideoProgressBar = () => {
   const [progressValue, setProgressValue] = useState<number>(0)
 
   const findTotalDurations = useCallback(() => {
+    const uri = state.currentDirectory.slice(
+      state.currentDirectory.indexOf('file-manager')
+    )
+
     const videoPromises = state.videoFilesOfCurrentDir.map((name) => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         const video = document.createElement('video')
-        video.src = '/file-manager/' + name
+        video.src = `/${uri}${name}`
 
         video.onloadedmetadata = function () {
           resolve(video.duration)
