@@ -1,7 +1,8 @@
 import { Box, Progress } from '@chakra-ui/react'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState, videoModalActions } from '../../store'
+import { CancelablePromise } from 'cancelable-promise'
 
 const VideoProgressBar = () => {
   const state = useSelector((state: RootState) => state.manager)
@@ -10,29 +11,26 @@ const VideoProgressBar = () => {
   const [progressValue, setProgressValue] = useState<number>(0)
 
   useEffect(() => {
-    let isCancelled = false
+    let videoPromises = []
+    let allVideoPromisesResolvedPromise
     // write in state total duration of all prev videos after change a video
     if (videoState.currentVideoDuration) {
       const uri = state.currentDirectory.slice(
         state.currentDirectory.indexOf('file-manager')
       )
 
-      const videoPromises = state.videoFilesOfCurrentDir.map((name) => {
-        return new Promise((resolve, reject) => {
+      videoPromises = state.videoFilesOfCurrentDir.map((name) => {
+        return new CancelablePromise((resolve) => {
           const video = document.createElement('video')
           video.src = `/${uri}${name}`
 
           video.onloadedmetadata = function () {
-            if (isCancelled) {
-              reject('component is unmounted')
-            }
             resolve(video.duration)
           }
         })
       })
-      Promise.all(videoPromises)
+      allVideoPromisesResolvedPromise = CancelablePromise.all(videoPromises)
         .then((result) => {
-          if (isCancelled) return
           if (result.includes(videoState.currentVideoDuration)) {
             const totalVideosDuration = result.reduce(
               (acc: number, item: number) => acc + item,
@@ -67,7 +65,10 @@ const VideoProgressBar = () => {
     }
 
     return () => {
-      isCancelled = true
+      for (const promise of videoPromises) {
+        promise.cancel()
+        allVideoPromisesResolvedPromise.cancel()
+      }
     }
   }, [videoState.videoId, videoState.currentVideoDuration])
 
