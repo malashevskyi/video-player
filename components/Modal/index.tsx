@@ -16,11 +16,9 @@ const VideoPopup = () => {
 
   useEffect(() => {
     // handle response of new video url set
-    console.log('set new video response', setNewVideoResponse)
     if (!setNewVideoResponse) return
 
     const timeout1 = setTimeout(() => {
-      console.log('loaded')
       dispatch(videoModalActions.setVideoIsLoaded())
     }, 300)
     const timeout2 = setTimeout(() => {
@@ -36,7 +34,6 @@ const VideoPopup = () => {
   useEffect(() => {
     // load new video
     // on click a video in the sidebar, a file in the manager or a timestamp
-    console.log('video url changed')
     if (!state.videoUrl) return
 
     doSetNewVideoUrl({

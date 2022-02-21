@@ -22,7 +22,6 @@ const getChunkProps = (range, fileSize) => {
 }
 
 export default function handler(req, res) {
-  console.log('here')
   if (!global.videoUrl) return
 
   const { fileSize, resolvedPath } = getFileSizeAndResolvedPath(global.videoUrl)
@@ -53,7 +52,6 @@ export default function handler(req, res) {
       'Content-Type': 'video/mp4',
       // 'Content-Type': 'video/webm',
     })
-    // console.log('response', response.getHeaders())
     global.videoStream = readStream.pipe(res)
   }
 }

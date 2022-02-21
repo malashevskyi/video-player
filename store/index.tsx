@@ -123,18 +123,11 @@ const videoModalSlice = createSlice({
       const { videoUrl, fileName } = action.payload
       state.videoPopupIsOpen = true
       state.videoId = state.videoId + 1
-      console.log('videoUrl', videoUrl)
       state.videoUrl = videoUrl
       state.videoDisplay = true
       state.videoLoading = true
       state.videoEnded = false
-      console.log('fileName', fileName)
       state.videoTitle = fileName
-      // if (startTime) {
-      //   state.startTime = startTime
-      // } else {
-      //   state.startTime = 0
-      // }
     },
     toggleSidebar(state) {
       state.sidebarIsOpen = !state.sidebarIsOpen

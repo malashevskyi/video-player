@@ -29,7 +29,6 @@ export default function handler(req, res) {
       })
     }
   }
-  // console.log('folder, files', folders, files)
   res.status(200).send({
     folders,
     files,

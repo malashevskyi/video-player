@@ -14,7 +14,6 @@ export default function handler(req, res) {
 
     fs.writeFileSync(path, JSON.stringify(newTimestamps))
 
-    console.log('here')
     res.status(204).send()
   } catch (error) {
     console.log('error', error)

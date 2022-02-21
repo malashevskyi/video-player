@@ -46,7 +46,6 @@ const VideoWrap = () => {
   }, [state.videoSpeed])
 
   const onVideoEnterPress = (event: KeyboardEvent) => {
-    console.log('event', event)
     if (event.target instanceof HTMLInputElement) return
     if (event.target instanceof HTMLTextAreaElement) return
     // if (event.key === 'Enter') {
