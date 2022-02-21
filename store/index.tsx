@@ -42,7 +42,9 @@ const managerSlice = createSlice({
     },
     setCurrentDirectory(state, action) {
       state.currentDirectory = action.payload
-      state.isRoot = !!action.payload.match(/file-manager\/$/)
+      state.isRoot =
+        action.payload.endsWith('file-manager/') ||
+        action.payload.endsWith('file-manager\\')
     },
     setStartDirectory(state, action) {
       state.startDirectory = action.payload
