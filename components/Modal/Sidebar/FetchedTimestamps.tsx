@@ -94,7 +94,7 @@ const FetchedTimestamps = ({
   }
 
   return (
-    <Box h="calc(100vh - 150px" ref={timestampsContainer} overflow="auto">
+    <Box h="calc(100vh - 150px)" ref={timestampsContainer} overflow="auto">
       {/* iterate filtered timestamps if exist, otherwise show all timestamps */}
       {(state.filteredTimestamps.length > 0
         ? state.filteredTimestamps
