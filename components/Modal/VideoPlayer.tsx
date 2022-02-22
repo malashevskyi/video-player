@@ -77,8 +77,8 @@ const VideoPlayer = forwardRef<HTMLVideoElement>((_, ref: any) => {
 
   return (
     <Box
-      w={state.videoDisplay ? state.videoWidth : 'auto'}
-      h={state.videoDisplay ? state.videoHeight : 'auto'}
+      w={state.videoWidth}
+      h={state.videoHeight}
       id="modalVideo"
       ref={ref}
       as="video"
