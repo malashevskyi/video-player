@@ -153,8 +153,13 @@ const videoModalSlice = createSlice({
       state.videoSpeed = action.payload
     },
     setVideoSize(state, action) {
-      state.videoHeight = action.payload.h
-      state.videoWidth = action.payload.w
+      const { h, w } = action.payload
+      if (w) {
+        state.videoHeight = h
+        state.videoWidth = w
+      } else {
+        state.videoHeight = h
+      }
     },
     setIsPlaying(state, action) {
       state.isPlaying = action.payload

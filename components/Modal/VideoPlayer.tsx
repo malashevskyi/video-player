@@ -15,6 +15,32 @@ const VideoPlayer = forwardRef<HTMLVideoElement>((_, ref: any) => {
     loadNewVideo()
   }, [state.videoEnded])
 
+  // observe video width with ResizeObserve
+  // update height depending on new video size ratio
+  useEffect(() => {
+    if (!ref.current) return
+
+    const { clientWidth, videoWidth, videoHeight } = ref.current
+
+    const observer = new ResizeObserver(() => {
+      if (clientWidth < videoWidth) {
+        const ratio = videoWidth / clientWidth
+
+        dispatch(
+          videoModalActions.setVideoSize({
+            h: videoHeight / ratio,
+          })
+        )
+      }
+    })
+
+    observer.observe(ref.current)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [ref.current])
+
   const loadNewVideo = () => {
     const files = managerState.videoFilesOfCurrentDir
     const currentFileName = state.videoTitle
@@ -56,10 +82,18 @@ const VideoPlayer = forwardRef<HTMLVideoElement>((_, ref: any) => {
   }
 
   const setNewVideoSize = () => {
-    const height = ref.current.clientHeight
-    const width = ref.current.clientWidth
+    let { clientHeight, clientWidth, videoWidth, videoHeight } = ref.current
 
-    const size = { h: height, w: width }
+    // define correct size with ratio
+    const ratio1 = videoWidth / videoHeight
+    const ratio2 = clientWidth / clientHeight
+
+    if (Math.abs(ratio1 - ratio2) > 0.02) {
+      const ratio = videoHeight / clientHeight
+      clientWidth = videoWidth / ratio
+    }
+
+    const size = { h: clientHeight, w: clientWidth }
 
     dispatch(videoModalActions.setVideoSize(size))
   }
